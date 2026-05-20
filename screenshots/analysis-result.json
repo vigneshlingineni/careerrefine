@@ -1,0 +1,74 @@
+{
+  "overall_score": 41,
+  "verdict": "High filtering risk — rewrite recommended",
+  "factor_scores": {
+    "employment_gap": {
+      "score": 15,
+      "summary": "Explicit 'Employment Gap' line with '(Personal reasons)' is the highest-risk representation pattern identified in ABQE; 18-month hole is surfaced without any productive reframing."
+    },
+    "skill_phrasing": {
+      "score": 35,
+      "summary": "Skills are stated vaguely ('did some Python scripting', 'data work', 'some machine learning') and miss critical JD vocabulary (ETL/ELT pipelines, PySpark, cloud infrastructure, APIs, Airflow)."
+    },
+    "resume_structure": {
+      "score": 55,
+      "summary": "Reverse-chronological ordering is correct, but bullets lack quantification, use passive voice throughout, and the explicit gap section disrupts flow."
+    },
+    "degree_origin": {
+      "score": 70,
+      "summary": "Degree is clearly stated and field-relevant (Information Systems); institution is regional but adequately identified; no burial or mismatch issues."
+    }
+  },
+  "findings": [
+    {
+      "factor": "employment_gap",
+      "severity": "high",
+      "issue": "Explicit gap label with unexplained personal reasons triggers maximum penalty signal",
+      "evidence": "Employment Gap  (Apr 2022 – Sep 2023)\n(Personal reasons)",
+      "recommendation": "Remove the 'Employment Gap' section entirely. If any productive activity occurred (freelance projects, online courses, open-source contributions, caregiving with transferable skills), create a 'Professional Development' or 'Independent Projects' entry covering that period. If none, simply omit the section—unexplained timeline holes are less penalizing than explicit gap labels in ABQE testing."
+    },
+    {
+      "factor": "skill_phrasing",
+      "severity": "high",
+      "issue": "Vague skill language misses JD's exact terminology for core requirements",
+      "evidence": "Did some Python scripting",
+      "recommendation": "Replace with JD-aligned phrasing: 'Developed Python automation scripts using pandas for data transformation' — only if accurate. The JD requires 'Strong Python skills, including pandas, PySpark'; vague 'scripting' does not register as meeting this requirement."
+    },
+    {
+      "factor": "skill_phrasing",
+      "severity": "high",
+      "issue": "No mention of ETL/ELT pipelines, cloud infrastructure, or APIs despite JD's explicit requirements",
+      "evidence": "Skills section: 'Python, SQL, Excel, Tableau, some machine learning, data work'",
+      "recommendation": "If you have built any data pipelines, worked with AWS/GCP/Azure, or created data access APIs, add these explicitly using JD vocabulary. If not, this role may be a stretch—the JD lists these as hard requirements, not nice-to-haves."
+    },
+    {
+      "factor": "skill_phrasing",
+      "severity": "medium",
+      "issue": "Passive, unquantified bullet verbs dilute demonstrated impact",
+      "evidence": "Was responsible for building dashboards and reports",
+      "recommendation": "Rewrite as: 'Built 15+ Tableau dashboards tracking [specific KPIs], reducing report generation time by X%' — quantify and use active voice. 'Was responsible for' is among the weakest phrasings in ATS/LLM matching."
+    },
+    {
+      "factor": "skill_phrasing",
+      "severity": "medium",
+      "issue": "'Helped with' and 'Worked on' signal junior contribution, not ownership",
+      "evidence": "Helped with data cleaning and processing tasks",
+      "recommendation": "Reframe to demonstrate ownership: 'Cleaned and processed 2M+ row datasets using Python and SQL, improving data quality for downstream analytics.' Only claim ownership you actually had."
+    },
+    {
+      "factor": "resume_structure",
+      "severity": "medium",
+      "issue": "Missing summary/headline section means no immediate JD alignment signal",
+      "evidence": "Resume opens directly with EXPERIENCE after contact info",
+      "recommendation": "Add a 2-3 line professional summary after contact info that mirrors JD language: 'Data professional with 5+ years of experience in SQL-based analytics, Python automation, and dashboard development. Seeking to apply pipeline and data platform skills in a senior data engineering role.'"
+    },
+    {
+      "factor": "degree_origin",
+      "severity": "low",
+      "issue": "Education section is minimal and could reinforce relevance",
+      "evidence": "B.S. Information Systems — Central State University  (2015)",
+      "recommendation": "Add relevant coursework or projects if applicable (e.g., 'Coursework: Database Systems, Data Warehousing, Applied Statistics'). This strengthens the degree-to-role connection for LLM matchers."
+    }
+  ],
+  "rewritten_resume": "ALEX RIVERA\nalex.rivera@email.com | linkedin.com/in/alexrivera\n\n────────────────────────────────────────\nPROFESSIONAL SUMMARY\n────────────────────────────────────────\nData professional with 5+ years of experience in SQL-based analytics, Python automation, and business intelligence development. Skilled in building dashboards, writing complex queries, and transforming raw data into actionable insights. Seeking to apply data pipeline and platform skills in a senior data engineering capacity.\n\n────────────────────────────────────────\nEXPERIENCE\n────────────────────────────────────────\nData Analyst — Midwest Analytics Group\nJan 2017 – Mar 2022\n\n• Built and maintained Tableau dashboards for cross-functional teams, enabling self-service analytics for sales, marketing, and operations stakeholders\n• Wrote complex SQL queries to extract, transform, and aggregate data from multiple source systems for weekly and monthly reporting\n• Developed Python scripts using pandas to automate data cleaning and processing workflows, reducing manual preparation time\n• Collaborated with analysts and business users to translate requirements into reproducible data pipelines and reporting solutions\n\nProfessional Development & Independent Projects\nApr 2022 – Sep 2023\n\n• Completed coursework in cloud data engineering fundamentals (AWS, data pipeline architecture)\n• Built personal ETL project using Python and SQL to aggregate and transform public datasets\n• Studied PySpark and Airflow through online platforms to expand data engineering toolkit\n\nJunior Analyst — Regional Consulting LLC\nJun 2015 – Dec 2016\n\n• Generated client-facing reports and analyses using Excel-based models and SQL queries\n• Supported senior consultants with data gathering, validation, and presentation preparation\n• Maintained documentation for recurring reporting processes\n\n────────────────────────────────────────\nSKILLS\n────────────────────────────────────────\nLanguages & Tools: Python (pandas), SQL (complex queries, optimization), Excel (advanced modeling), Tableau\nData Engineering: ETL/ELT pipeline design (learning), data transformation, data cleaning automation\nCloud & Infrastructure: AWS fundamentals (learning), database systems\nOther: Machine learning concepts, data visualization, cross-functional collaboration, technical documentation\n\n────────────────────────────────────────\nEDUCATION\n────────────────────────────────────────\nB.S. Information Systems — Central State University, 2015\nRelevant Coursework: Database Systems, Business Intelligence, Applied Statistics\n\n────────────────────────────────────────\n\nNote: The rewritten resume reframes the employment gap as a professional development period. Only include the specific activities (AWS coursework, ETL project, PySpark/Airflow study) if you actually completed them. If you did not engage in any professional development during this period, remove this section entirely rather than fabricating content. The gap will be less penalizing as an unexplained timeline discontinuity than as an explicit 'Employment Gap' label."
+}

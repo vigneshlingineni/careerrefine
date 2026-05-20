@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: var(--font-fraunces), 'Fraunces', Georgia, serif;
+  --font-mono: var(--font-jetbrains), 'JetBrains Mono', 'Courier New', monospace;
+}
+
+:root {
+  --bg: #0a0a0b;
+  --bg-soft: #111113;
+  --bg-input: #16161a;
+  --line: #26262b;
+  --line-strong: #3a3a40;
+  --text: #e8e8e6;
+  --muted: #8a8a85;
+  --dim: #5a5a57;
+  --accent: #d4ff3f;
+  --accent-dim: #9bbf2e;
+  --warn: #ffb547;
+  --danger: #ff6b6b;
+  --good: #6ddc8c;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-mono);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+}
