@@ -1,4 +1,38 @@
+'use client';
+
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
+function NavLink({ href, label }: { href: string; label: string }) {
+  const pathname = usePathname();
+  const active = pathname === href || (href !== '/' && pathname.startsWith(href));
+
+  return (
+    <Link
+      href={href}
+      className="font-mono"
+      style={{
+        fontSize: '13px',
+        color: active ? 'var(--text)' : 'var(--dim)',
+        letterSpacing: '0.02em',
+        textDecoration: 'none',
+        paddingBottom: '2px',
+        borderBottom: `1px solid ${active ? 'var(--accent)' : 'transparent'}`,
+        transition: 'color 150ms, border-color 150ms',
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.color = 'var(--accent)';
+        if (!active) e.currentTarget.style.borderBottomColor = 'var(--accent-dim)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.color = active ? 'var(--text)' : 'var(--dim)';
+        e.currentTarget.style.borderBottomColor = active ? 'var(--accent)' : 'transparent';
+      }}
+    >
+      {label}
+    </Link>
+  );
+}
 
 export default function Nav() {
   return (
@@ -23,18 +57,10 @@ export default function Nav() {
         >
           CareerRefine
         </Link>
-        <Link
-          href="/analyze"
-          className="font-mono"
-          style={{
-            fontSize: '12px',
-            color: 'var(--muted)',
-            letterSpacing: '0.02em',
-            textDecoration: 'none',
-          }}
-        >
-          Try it →
-        </Link>
+        <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
+          <NavLink href="/analyze" label="Scan" />
+          <NavLink href="/apply" label="Apply mode" />
+        </div>
       </div>
     </header>
   );
