@@ -43,3 +43,14 @@ body {
 a {
   color: inherit;
 }
+
+.account-view-link {
+  font-size: 12px;
+  color: var(--dim);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color 150ms;
+}
+.account-view-link:hover {
+  color: var(--accent);
+}

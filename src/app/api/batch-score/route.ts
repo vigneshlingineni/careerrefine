@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import Anthropic from '@anthropic-ai/sdk';
+import { createClient } from '@/lib/supabase/server';
 
 const client = new Anthropic();
 const systemPrompt = readFileSync(
@@ -116,6 +117,37 @@ export async function POST(request: NextRequest) {
       error: r.reason instanceof Error ? r.reason.message : 'Scoring failed',
     };
   });
+
+  // Persist scans for authenticated users — failure is always silent
+  try {
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (user) {
+      const rows = results
+        .filter((r) => !('error' in r))
+        .map((r) => {
+          const rec = r as Record<string, unknown>;
+          return {
+            user_id: user.id,
+            resume_filename: null as string | null,
+            jd_title: (rec.title as string | null) ?? null,
+            jd_source: (rec.source as string | null) ?? null,
+            jd_url: (rec.url as string | null) ?? null,
+            overall_score: (rec.overall_score as number | null) ?? null,
+            verdict: (rec.verdict as string | null) ?? null,
+            factor_scores: rec.factor_scores ?? null,
+            findings: rec.findings ?? null,
+            rewritten_resume: null as string | null,
+            scan_type: 'batch' as const,
+          };
+        });
+      if (rows.length > 0) {
+        await supabase.from('scans').insert(rows);
+      }
+    }
+  } catch {
+    // never surfaces to caller
+  }
 
   return Response.json({ results });
 }

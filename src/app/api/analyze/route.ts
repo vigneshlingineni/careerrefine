@@ -3,6 +3,7 @@ import { readFileSync } from 'fs';
 import { join } from 'path';
 import Anthropic from '@anthropic-ai/sdk';
 import mammoth from 'mammoth';
+import { createClient } from '@/lib/supabase/server';
 
 const client = new Anthropic();
 
@@ -106,6 +107,30 @@ export async function POST(request: NextRequest) {
           { error: 'Analysis engine returned malformed JSON. Please try again.' },
           { status: 502 },
         );
+      }
+
+      // Persist scan for authenticated users — failure is always silent
+      try {
+        const supabase = await createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          const p = parsed as Record<string, unknown>;
+          await supabase.from('scans').insert({
+            user_id: user.id,
+            resume_filename: file.name,
+            jd_title: null,
+            jd_source: null,
+            jd_url: null,
+            overall_score: (p.overall_score ?? null) as number | null,
+            verdict: (p.verdict ?? null) as string | null,
+            factor_scores: p.factor_scores ?? null,
+            findings: p.findings ?? null,
+            rewritten_resume: (p.rewritten_resume ?? null) as string | null,
+            scan_type: 'single',
+          });
+        }
+      } catch {
+        // never surfaces to caller
       }
 
       return Response.json(parsed);
